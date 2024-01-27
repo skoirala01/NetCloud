@@ -1,0 +1,416 @@
+import os
+import shutil
+import time
+from openpyxl import Workbook
+from openpyxl import load_workbook
+from openpyxl.styles import Font
+
+################################################################
+########Read or Load the Excel DAV File downloaded from BDB script######
+filename = 'DAV.xlsx'
+NBCUIT = load_workbook(filename)
+NBCUASA = Workbook()
+NBCUWLC = Workbook()
+sheet = NBCUIT.get_sheet_by_name('DAV')
+
+
+################################################################
+########Delete extra Coulumn####################################
+sheet.delete_cols(17,19)
+sheet.delete_cols(15,1)
+sheet.delete_cols(13,1)
+sheet.delete_cols(10,1)
+sheet.delete_cols(8,1)
+
+################################################################
+########Create new Sheet that needed#############################
+NBCUIT.create_sheet('US',1)
+NBCUIT.create_sheet('Int`l',2)
+NBCUIT.create_sheet('Reachable(US)',3)
+NBCUIT.create_sheet('Reachable(Int`l)',4)
+NBCUIT.create_sheet('UnReachable(US)',5)
+NBCUIT.create_sheet('UnReachable(Int`l)',6)
+NBCUIT.create_sheet('ConfigFailed(US)',7)
+NBCUIT.create_sheet('ConfigFailed(Int`l)',8)
+NBCUASA.create_sheet('ASA Inventory',0)
+NBCUASA.create_sheet('ASA Reachable',1)
+NBCUASA.create_sheet('ASA UnReachable',2)
+NBCUASA.create_sheet('ASA ConfigFailed',3)
+NBCUWLC.create_sheet('WLC Inventory',0)
+NBCUWLC.create_sheet('WLC Reachable',1)
+NBCUWLC.create_sheet('WLC UnReachable',2)
+NBCUWLC.create_sheet('WLC ConfigFailed',3)
+
+
+################################################################
+########Read the SheetName that are created######################
+us_invent = NBCUIT.get_sheet_by_name('US')
+intl_invent = NBCUIT.get_sheet_by_name('Int`l')
+us_reach = NBCUIT.get_sheet_by_name('Reachable(US)')
+intl_reach = NBCUIT.get_sheet_by_name('Reachable(Int`l)')
+us_unreach = NBCUIT.get_sheet_by_name('UnReachable(US)')
+intl_unreach = NBCUIT.get_sheet_by_name('UnReachable(Int`l)')
+us_configfailed= NBCUIT.get_sheet_by_name('ConfigFailed(US)')
+intl_configfailed = NBCUIT.get_sheet_by_name('ConfigFailed(Int`l)')
+asa_invent = NBCUASA.get_sheet_by_name('ASA Inventory')
+asa_reach = NBCUASA.get_sheet_by_name('ASA Reachable')
+asa_unreach= NBCUASA.get_sheet_by_name('ASA UnReachable')
+asa_configfailed= NBCUASA.get_sheet_by_name('ASA ConfigFailed')
+wlc_invent = NBCUWLC.get_sheet_by_name('WLC Inventory')
+wlc_reach = NBCUWLC.get_sheet_by_name('WLC Reachable')
+wlc_unreach = NBCUWLC.get_sheet_by_name('WLC UnReachable')
+wlc_configfailed= NBCUWLC.get_sheet_by_name('WLC ConfigFailed')
+
+################################################################
+########Extract the US and International Inventory##############
+row = sheet.max_row
+col = sheet.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    us_invent.cell(1,j).value = sheet.cell(1,j).value    
+    intl_invent.cell(1,j).value = sheet.cell(1,j).value
+    us_invent.cell(1,j).font = Font(sz = 12, b = True)
+    intl_invent.cell(1,j).font = Font(sz = 12, b = True)
+
+for i in range (2,row+1):
+    if str(sheet.cell(i,10).value) == 'nbc2' and str(sheet.cell(i,11).value) != 'International':
+        for j in range (1,col+1):
+            us_invent.cell(a_row,j).value = sheet.cell(i,j).value
+        a_row = a_row + 1
+        
+    elif str(sheet.cell(i,11).value) == 'International':
+        for j in range (1,col+1):
+            intl_invent.cell(b_row,j).value = sheet.cell(i,j).value
+        b_row = b_row + 1
+
+################################################################
+########Extract US Reachable and Unreachable####################
+row = us_invent.max_row
+col = us_invent.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    us_reach.cell(1,j).value = us_invent.cell(1,j).value
+    us_unreach.cell(1,j).value = us_invent.cell(1,j).value
+    us_reach.cell(1,j).font = Font(sz = 12, b = True)
+    us_unreach.cell(1,j).font = Font(sz = 12, b = True)
+
+for i in range (2,row+1):
+    if str(us_invent.cell(i,3).value) == 'ACTIVE':
+        for j in range (1,col+1):
+            us_reach.cell(a_row,j).value = us_invent.cell(i,j).value
+        a_row = a_row + 1
+        
+    elif str(us_invent.cell(i,3).value) == 'DEVICE NOT REACHABLE':
+        for j in range (1,col+1):
+            us_unreach.cell(b_row,j).value = us_invent.cell(i,j).value
+        b_row = b_row + 1
+
+################################################################
+########Extract Internaltional Rechable and Unreachable##########
+row = intl_invent.max_row
+col = intl_invent.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    intl_reach.cell(1,j).value = intl_invent.cell(1,j).value
+    intl_unreach.cell(1,j).value = intl_invent.cell(1,j).value
+    intl_reach.cell(1,j).font = Font(sz = 12, b = True)
+    intl_unreach.cell(1,j).font = Font(sz = 12, b = True)
+
+for i in range (2,row+1):
+    if str(intl_invent.cell(i,3).value) == 'ACTIVE':
+        for j in range (1,col+1):
+            intl_reach.cell(a_row,j).value = intl_invent.cell(i,j).value
+        a_row = a_row + 1
+        
+    elif str(intl_invent.cell(i,3).value) == 'DEVICE NOT REACHABLE':
+        for j in range (1,col+1):
+            intl_unreach.cell(b_row,j).value = intl_invent.cell(i,j).value
+        b_row = b_row + 1
+
+################################################################
+########Extract Config failed for US and International##########
+row = us_reach.max_row
+col = us_reach.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    us_configfailed.cell(1,j).value = us_reach.cell(1,j).value
+    intl_configfailed.cell(1,j).value = intl_reach.cell(1,j).value
+    us_configfailed.cell(1,j).font = Font(sz = 12, b = True)
+    intl_configfailed.cell(1,j).font = Font(sz = 12, b = True)
+    
+
+for i in range (2,row+1):
+    if str(us_reach.cell(i,13).value) != 'PASS':
+        for j in range (1,col+1):
+            us_configfailed.cell(a_row,j).value = us_reach.cell(i,j).value
+        a_row = a_row + 1
+
+row = intl_reach.max_row
+for i in range (2,row+1):
+    if str(intl_reach.cell(i,13).value) != 'PASS':
+        for j in range (1,col+1):
+            intl_configfailed.cell(b_row,j).value = intl_reach.cell(i,j).value
+        b_row = b_row + 1
+        
+###################################################################
+#######################ASA and WLC Inventory###################################
+row = sheet.max_row
+col = sheet.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    asa_invent.cell(1,j).value = sheet.cell(1,j).value
+    asa_invent.cell(1,j).font = Font(sz = 12, b = True)
+    wlc_invent.cell(1,j).value = sheet.cell(1,j).value
+    wlc_invent.cell(1,j).font = Font(sz = 12, b = True)
+
+for i in range (2,row+1):
+    if 'ASA' in str(sheet.cell(i,6).value):
+        for j in range (1,col+1):
+            asa_invent.cell(a_row,j).value = sheet.cell(i,j).value
+        a_row = a_row + 1
+    elif 'Wireless' in str(sheet.cell(i,6).value):
+        for j in range (1,col+1):
+            wlc_invent.cell(b_row,j).value = sheet.cell(i,j).value
+        b_row = b_row + 1
+
+################################################################
+########ASA reachable unreachable ##############################
+row = asa_invent.max_row
+col = asa_invent.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    asa_reach.cell(1,j).value = asa_invent.cell(1,j).value
+    asa_unreach.cell(1,j).value = asa_invent.cell(1,j).value
+    asa_reach.cell(1,j).font = Font(sz = 12, b = True)
+    asa_unreach.cell(1,j).font = Font(sz = 12, b = True)
+
+for i in range (2,row+1):
+    if str(asa_invent.cell(i,3).value) == 'ACTIVE':
+        for j in range (1,col+1):
+            asa_reach.cell(a_row,j).value = asa_invent.cell(i,j).value
+        a_row = a_row + 1
+        
+    elif str(asa_invent.cell(i,3).value) == 'DEVICE NOT REACHABLE':
+        for j in range (1,col+1):
+            asa_unreach.cell(b_row,j).value = asa_invent.cell(i,j).value
+        b_row = b_row + 1
+################################################################
+########WLC reachable unreachable ##############################
+row = wlc_invent.max_row
+col = wlc_invent.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    wlc_reach.cell(1,j).value = wlc_invent.cell(1,j).value
+    wlc_unreach.cell(1,j).value = wlc_invent.cell(1,j).value
+    wlc_reach.cell(1,j).font = Font(sz = 12, b = True)
+    wlc_unreach.cell(1,j).font = Font(sz = 12, b = True)
+
+for i in range (2,row+1):
+    if str(wlc_invent.cell(i,3).value) == 'ACTIVE':
+        for j in range (1,col+1):
+            wlc_reach.cell(a_row,j).value = wlc_invent.cell(i,j).value
+        a_row = a_row + 1
+        
+    elif str(asa_invent.cell(i,3).value) == 'DEVICE NOT REACHABLE':
+        for j in range (1,col+1):
+            wlc_unreach.cell(b_row,j).value = wlc_invent.cell(i,j).value
+        b_row = b_row + 1
+################################################################
+########Extract Config failed for ASA and WLC##########
+row = asa_reach.max_row
+col = asa_reach.max_column
+a_row = 2
+b_row = 2
+for j in range(1, col+1):
+    asa_configfailed.cell(1,j).value = asa_reach.cell(1,j).value
+    wlc_configfailed.cell(1,j).value = wlc_reach.cell(1,j).value
+    asa_configfailed.cell(1,j).font = Font(sz = 12, b = True)
+    wlc_configfailed.cell(1,j).font = Font(sz = 12, b = True)
+    
+
+for i in range (2,row+1):
+    if str(asa_reach.cell(i,13).value) != 'PASS':
+        for j in range (1,col+1):
+            asa_configfailed.cell(a_row,j).value = asa_reach.cell(i,j).value
+        a_row = a_row + 1
+
+row = wlc_reach.max_row
+col = asa_reach.max_column
+for i in range (2,row+1):
+    if str(wlc_reach.cell(i,13).value) != 'PASS':
+        for j in range (1,col+1):
+            wlc_configfailed.cell(b_row,j).value = wlc_reach.cell(i,j).value
+        b_row = b_row + 1
+################################################################
+########Counting total Device from Each Sheet###################
+row = sheet.max_row-1
+row_us = us_invent.max_row-1
+row_int = intl_invent.max_row-1
+row_us_reach = us_reach.max_row-1
+row_int_reach = intl_reach.max_row-1
+row_us_unreach = us_unreach.max_row-1
+row_int_unreach = intl_unreach.max_row-1
+row_us_configfailed = us_configfailed.max_row-1
+row_int_configfailed = intl_configfailed.max_row-1
+row_asa  = asa_invent.max_row-1
+row_asa  = asa_invent.max_row-1
+row_asa_reach = asa_reach.max_row-1
+row_asa_configfailed = asa_configfailed.max_row-1
+row_asa_unreach = asa_unreach.max_row-1
+row_wlc = wlc_invent.max_row-1
+row_wlc_reach = wlc_reach.max_row-1
+row_wlc_unreach = wlc_unreach.max_row-1
+row_wlc_configfailed = wlc_configfailed.max_row-1
+
+
+################################################################
+########Renaming the sheet######################################
+sheet.title = 'Inventory -' + str(row)
+us_invent.title = us_invent.title + '-Invent-'+str(row_us)
+intl_invent.title = intl_invent.title + '-Invent-'+str(row_int)
+us_reach.title = us_reach.title + '-'+str(row_us_reach)
+intl_reach.title = intl_reach.title + '-'+str(row_int_reach)
+us_unreach.title = us_unreach.title + '-'+str(row_us_unreach)
+intl_unreach.title = intl_unreach.title + '-'+str(row_int_unreach)
+us_configfailed.title = us_configfailed.title + '-' + str(row_us_configfailed)
+intl_configfailed.title = intl_configfailed.title + '-' + str(row_int_configfailed)
+asa_invent.title = asa_invent.title + '-' + str(row_asa)
+asa_reach.title = asa_reach.title + '-' + str(row_asa_reach)
+asa_unreach.title = asa_unreach.title + '-' + str (row_asa_unreach)
+asa_configfailed.title = asa_configfailed.title + '-' + str (row_asa_configfailed)
+wlc_invent.title = wlc_invent.title + '-' + str(row_wlc)
+wlc_reach.title = wlc_reach.title + '-' + str(row_wlc_reach)
+wlc_unreach.title = wlc_unreach.title + '-' + str (row_wlc_unreach)
+wlc_configfailed.title = wlc_configfailed.title + '-' + str (row_wlc_configfailed)
+
+file_asa = 'NBCU_ASA_reachable_unrechable_count_'+time.strftime("%m-%d-%y" + '.xlsx')
+file_wlc = 'NBCU_WLC_reachable_unreachable_count_'+time.strftime("%m-%d-%y" + '.xlsx')
+
+
+NBCUIT.save(filename)
+NBCUASA.save(file_asa)
+NBCUWLC.save(file_wlc)
+
+
+
+
+try:
+    log_dir = 'C:/Users/skoirala/Documents/Works/1. NBCU/3. CSPC INVENTORY DELIVERABLES/'+time.strftime("%m-%d-%y")
+    os.makedirs(log_dir)
+except:
+    print("Directory already exists, removing and creating it")
+    shutil.rmtree(log_dir)
+    os.makedirs(log_dir)
+
+newfilename = 'NBCU_IT_reachable_unreachable_count_' + time.strftime("%m-%d-%y") + '.xlsx'
+os.rename(filename, newfilename)
+shutil.copy2(newfilename, log_dir)
+shutil.copy2(file_asa, log_dir)
+shutil.copy2(file_wlc, log_dir)
+os.remove(newfilename)
+os.remove(file_asa)
+os.remove(file_wlc)
+
+
+#wb = load_workbook('DAV.xlsx')
+#
+#national = wb.get_sheet_by_name("National")
+#Int_nl = wb.get_sheet_by_name("International")
+#
+#for i in range (1, row_n+1):    
+#    if ((national.cell(i,1).value)) == None:
+#       national.delete_rows(i,1)
+#       print i
+            
+#for i in range (1, row_int+1):
+#    if Int_nl.cell(i,1).value == 'None':
+#      #  Int_nl.delete_rows(i,1)
+#        print i
+
+#wb.save('abc4.xlsx')
+
+
+#for i in range (1, Int_nl.max_row+1):
+#    if Int_nl.cell(i,1).value == 'None':
+#        Int_nl.delete_rows(i)
+#wb.save('DAV.xlsx')
+        
+
+#from openpyxl import Workbook
+#from openpyxl import load_workbook
+#
+#wb1 = load_workbook('abc33.xlsx')
+#print wb1.sheetnames
+#active_sheet = wb1.active
+#print(type(active_sheet))
+
+#sheet = wb1.get_sheet_by_name('Sheet2')
+#print(sheet.title)
+#a1 = sheet['A1']
+#print a1.value
+#sheet.delete_cols(5,9)
+#a1 = sheet['A5']
+#print a1.value
+#source =  wb1.copy_worksheet(sheet)
+
+#wb1.create_sheet('sid1',0)
+#ws = wb1.get_sheet_by_name("sid1")
+#ws['A1'] = sheet['B1'].value
+#
+#
+#
+#row = sheet.max_row
+#col = sheet.max_column
+#
+#for i in range (1,row+1):
+#    for j in range (1,col+1):
+#        ws.cell(i,j).value = sheet.cell(i,j).value
+#
+#
+#ws['B1'] = '150000'
+#print ws['B1'].value
+#ws.cell(2,2).value = 2
+#wb1.save('abc33.xlsx')
+
+#from xlutils.copy import copy as xl_copy
+#wb = xl_copy('Sudip')
+#wb1.create_sheet('sid1')
+#sheet0 = wb1.get_sheet_by_name("sid1")
+#sheet0['A1'] = 1500
+#
+#wb1.save('abc334.xlsx')
+
+
+
+
+#
+#wb2 = Workbook()
+#
+### get Sheet
+##source=wb1.get_sheet_by_name('Sudip')
+#source = wb1.active
+### copy sheet
+#target=wb2.copy_worksheet(source)
+#wb2
+#wb2.save('abc22.xlsx')
+#
+
+
+#wb1.create_sheet("NewData")
+#wb1.save('ReadExcel1.xlsx')
+
+#wb1.create_sheet('Sample Sheet')
+#wb1.save('Sample1.xlsx')
+
+#wb1.remove_sheet("Sheet2")
+#wb1.create_sheet("January", 0)
+#print(wb1.sheetnames)
+#
+#wb1.save('sample.xlsx')
