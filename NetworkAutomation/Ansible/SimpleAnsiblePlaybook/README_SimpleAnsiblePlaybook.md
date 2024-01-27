@@ -3,6 +3,7 @@ Author:
 Sudip Koirala - Network Consulting Engineer, Network Automation Engineer, Network Architect
 
 Recording Link: https://cisco.webex.com/recordingservice/sites/cisco/recording/playback/14ecb1356282103abbaf0050568f9cbe
+
 pw: Please Contact Author 
 
  
@@ -14,8 +15,7 @@ Lab Procedures:
 
 1. create the 'ansible.cfg' file and defined below:
 [defaults]
-# some basic default values... 
-
+#some basic default values...
 inventory      =  directory of the host files, e.g., /export-home/<yourusername>/Test_Ansible/hosts 
 
  
