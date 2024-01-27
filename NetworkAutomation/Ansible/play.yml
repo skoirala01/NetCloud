@@ -1,0 +1,20 @@
+---
+- name: testing router commands
+  gather_facts: no
+  connection: network_cli
+  vars:
+    router_user: ansible_user
+    ansible_network_os: iosxr
+  hosts: asr9k_withuserpassword
+  tasks:
+    - name: connection and show interface commands
+      iosxr_command:
+        commands: show ip int br
+      register: output
+      become: yes
+      become_user: "{{ router_user }}"
+ #     become_password: "{{ ansible_ssh_password }}"
+      become_method: enable
+    - name: Display
+      debug:
+        msg: "{{output.stdout_lines}}"

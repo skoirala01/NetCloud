@@ -1,0 +1,12 @@
+ansible_ssh_pass: password
+ansible_ssh_user: username
+ansible_network_os: iosxr
+
+
+
+# tasks
+asr_9k: true
+asr_1k: true
+asr_920: true
+asr_900: true
+play2: true
