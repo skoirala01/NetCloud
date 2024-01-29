@@ -26,3 +26,12 @@ Ex. Schedule a workshop where we show you how to do it.
 # Benefit
 Describe how your recommended Position/Action will address listeners' needs. State the results clearly and quantifiable. The benefits you describe should differentiate you and be meaningful to your listeners. 
 Ex. Get visibility on quality of each build. Eliminate waiting time and handovers. Reduce manual repetitive work and let your team focus on building better code faster
+
+
+
+# Building Slides
+===========
+- 1 slide for 2-3 minutes (maximum)
+- 5x5 rule (5 bullets, 5 words per bullet)
+- Memorable image is better than words
+- Dark slides sip energy
