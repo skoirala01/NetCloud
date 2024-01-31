@@ -64,3 +64,11 @@ pip3 install rich
 
 https://github.com/YangModels/yang/blob/main/vendor/cisco/xe/1671/README.md
 in github, pyang -f tree xxx.yang (gives you the tree), check the snapshot of training video
+
+
+- Python-Automation-Cookbook
+https://github.com/PacktPublishing/Python-Automation-Cookbook
+https://github.com/PacktPublishing
+
+- Modern Alternatives of Command-Line Tools
+https://zaiste.net/posts/shell-commands-rust/
