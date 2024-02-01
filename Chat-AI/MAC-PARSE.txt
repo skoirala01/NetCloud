@@ -1,0 +1,54 @@
+Write a python script to read the arp table from the file in the format below and extract ip addresses, mac addresses, and VLANs. convert MAC address from Cisco to RFC format. extract VLAN number as xx from 'arpa VLANxx'. write extracted ip addresses to the separate file for each VLAN, but skip the first 3 extracted ip addresses. write extracted MAC addresses to the separate file for each VLAN, but skip the first 3 extracted MAC addresses. make sure to handle the exceptions.
+
+"internet 10.90.29.1 - 0000.0c07.ac30 arpa vlan81
+internet 10.90.29.2 - 0000.0c07.ac02 arpa vlan81
+internet 10.90.29.3 - 0000.0c07.ac01 arpa vlan82
+internet 10.90.29.1 - 0000.0c07.ac00 arpa vlan83"
+
+
+import re
+import os
+
+def convert_mac(mac):
+    return ':'.join(re.findall('..',mac.replace('.','')))
+
+def read_file(file):
+    with open(file, 'r') as f:
+        data = f.readlines()
+    return data
+
+def write_to_file(file, data):
+    with open(file, 'w') as f:
+        for line in data:
+            f.write(line + '\n')
+
+def main():
+    data = read_file('arp_table.txt')
+    arp_data = {}
+
+    for line in data:
+        try:
+            ip = re.search(r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b', line).group()
+            mac = re.search(r'\b\w{4}\.\w{4}\.\w{4}\b', line).group()
+            vlan = re.search(r'vlan\d{1,3}', line).group()
+
+            mac = convert_mac(mac)
+
+            if vlan not in arp_data:
+                arp_data[vlan] = {'ip':[], 'mac':[]}
+
+            arp_data[vlan]['ip'].append(ip)
+            arp_data[vlan]['mac'].append(mac)
+        except AttributeError:
+            print(f"Unable to parse line: {line}")
+
+    for vlan, values in arp_data.items():
+        if len(values['ip']) > 3:
+            write_to_file(f'{vlan}_ip.txt', values['ip'][3:])
+            write_to_file(f'{vlan}_mac.txt', values['mac'][3:])
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as e:
+        print(f"An error occurred: {e}")
