@@ -1,0 +1,30 @@
+ssh-keygen -R 9.0.55.152
+
+
+[Linuxhost]$ ssh x.x.x.x
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+SHA256:0jiC1kMoSD7GwESwHDRgwc0DuHcJlkXW9vo6rKjJTyI.
+Please contact your system administrator.
+Add correct host key in /export-home/<username>/.ssh/known_hosts to get rid of this message.
+Offending RSA key in /export-home/<username>/.ssh/known_hosts:6
+RSA host key for x.x.x.x has changed and you have requested strict checking.
+Host key verification failed.
+[skoirala@infra-linux-01 ~]$ ssh-keygen -R x.x.x.x
+# Host x.x.x.x found: line 6
+/export-home/<username>/.ssh/known_hosts updated.
+Original contents retained as /export-home/<username>/.ssh/known_hosts.old
+
+
+[linuxhost]$ ssh x.x.x.x
+The authenticity of host 'x.x.x.x (x.x.x.x)' can't be established.
+RSA key fingerprint is SHA256:0jiC1kMoSD7GwESwHDRgwc0DuHcJlkXW9vo6rKjJTyI.
+RSA key fingerprint is MD5:44:14:c9:2c:eb:ea:a5:48:f0:f4:ee:e8:2d:b0:59:70.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '9.0.5.152' (RSA) to the list of known hosts.
+Password:

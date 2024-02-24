@@ -72,3 +72,13 @@ https://github.com/PacktPublishing
 
 - Modern Alternatives of Command-Line Tools
 https://zaiste.net/posts/shell-commands-rust/
+
+
+-XPath Capability
+https://datatracker.ietf.org/doc/html/rfc6241#section-8.9.5.1
+
+- Cisco Model-Driven-Telemetry 
+https://github.com/DataKnox/Cisco-MDT-TIG-Docker
+
+- CI/CD Test Environment
+https://github.com/DataKnox/NetDevKnox
