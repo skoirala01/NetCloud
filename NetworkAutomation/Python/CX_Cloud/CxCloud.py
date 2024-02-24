@@ -1,11 +1,12 @@
 '''
 Written by Sudip
+Author: Sudip Koirala
 '''
 
 from datetime import date
 
 five_dev_list = []
-path = '/Users/skoirala/Documents/Customized/GIT_NETCLOUD/NetCloud/NetworkAutomation/Python/CX_Cloud'
+path = '<Directory>'
 
 ''' Please update the list of Devices in each time'''
 Dev_filename = f'''{path}/ListofDevices.txt'''
