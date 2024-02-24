@@ -6,7 +6,7 @@ Author: Sudip Koirala
 from datetime import date
 
 five_dev_list = []
-path = '<Directory>'
+path = 'Directory'
 
 ''' Please update the list of Devices in each time'''
 Dev_filename = f'''{path}/ListofDevices.txt'''
@@ -26,7 +26,7 @@ with open(Dev_filename,'r') as file:
             cmd_file.write(f'''\n\n*******VersionCheck|ConfigCheck | From Exec Mode*******\n''')
             for line in five_dev_list:
                 cmd_file.write(f'''show devices device {line.strip()} live-status version\n''')
-                cmd_file.write(f'''show running-config devices device {line.strip()} config | save SHPTLAWRT1A-P-CI-0509-01.running_config_{date.today()}.txt\n''')
+                cmd_file.write(f'''show running-config devices device {line.strip()} config | save {line.strip()}.running_config_{date.today()}.txt\n''')
 
 
             cmd_file.write(f'''\n\n*******Enable TraceLogs from ExecMode:*******\n''')
