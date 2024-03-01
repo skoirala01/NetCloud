@@ -6,9 +6,11 @@
   - NSO can be logged in Linux_Host_Machine with command 'Linux_VM$ ssh root@<NSO_Ipv6>'
   - Go to the NSO CLI admin mode using 'ncs_cli -Cu admin'
 
+
 # Prerequisite
 - NSO Development team has already updated the NED Drivers and Backup Configs
 - Download the Python3 software from the https://www.python.org/downloads/
+
 
 # Procedures
 - Clone or download this Python Script in your computer (local machine)

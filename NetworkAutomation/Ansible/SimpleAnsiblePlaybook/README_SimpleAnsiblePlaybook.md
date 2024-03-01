@@ -29,7 +29,7 @@ ansible_ssh_user: XXXXXXXXXXX
  
 
 4. create the 'playbook.yml' file and dump below.. Follow the proper indentation.
----
+```---
 - name: testing router commands
   hosts: asr9k
   gather_facts: no
@@ -48,7 +48,7 @@ ansible_ssh_user: XXXXXXXXXXX
       debug:
         msg: "{{output.stdout_lines}}"
 
-
+```
 5. play the yaml file like below
 ansible-playbook play.yml 
 
