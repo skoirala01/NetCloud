@@ -11,21 +11,21 @@ Lab Procedures:
 ==============
 
 1. create the 'ansible.cfg' file and defined below:
-[defaults]
+`[defaults]
 #some basic default values...
 inventory      =  directory of the host files, e.g., /export-home/<yourusername>/Test_Ansible/hosts 
-
+`
 
 2. create the 'hosts' file and dump the below in it
-[asr9k]
+`[asr9k]
 9.0.2.39 ansible_host=9.0.2.39 ansible_network_os=iosxr 
-
+`
 
 3. create the directory vars, and create a new file main.yml file into this directiory and dump below (vars/main.yml): 
 
-ansible_ssh_pass: XXXXX
+`ansible_ssh_pass: XXXXX
 ansible_ssh_user: XXXXXXXXXXX 
-
+`
  
 
 4. create the 'playbook.yml' file and dump below.. Follow the proper indentation.
@@ -50,11 +50,12 @@ ansible_ssh_user: XXXXXXXXXXX
 
 ```
 5. play the yaml file like below
-ansible-playbook play.yml 
-
+`ansible-playbook play.yml 
+`
  
 
  
 
-Ansible Reference link:
-https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_l3_interfaces_module.html 
+
+[Ansible Reference link](https://docs.ansible.com/ansible/latest/collections/cisco/ios/ios_l3_interfaces_module.html 
+)
