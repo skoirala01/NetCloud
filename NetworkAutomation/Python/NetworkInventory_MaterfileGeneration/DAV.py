@@ -7,8 +7,8 @@ from openpyxl.styles import Font
 
 
 ###################################################################################
-log_dir = 'C:/Users/skoirala/Documents/Works/1. NBCU/3. CSPC INVENTORY DELIVERABLES/'+time.strftime("%m-%d-%y")
-readfile_frompath = 'C:/Users/skoirala/Downloads/DAV.xlsx'
+log_dir = '<Directory>/'+time.strftime("%m-%d-%y")
+readfile_frompath = 'Directory/DAV.xlsx'
 ################################################################
 ########Read or Load the Excel File#############################
 filename = readfile_frompath
@@ -18,10 +18,10 @@ sheet = NBCUITT.get_sheet_by_name('DAV')
 #NBCUWLC = Workbook()
 #NBCUBC = Workbook()
 
-NBCUIT = load_workbook('C:/Users/skoirala/Documents/Works/1. NBCU/3. CSPC INVENTORY DELIVERABLES/Template_NBCU_IT.xlsx')
-NBCUASA = load_workbook('C:/Users/skoirala/Documents/Works/1. NBCU/3. CSPC INVENTORY DELIVERABLES/Template_NBCU_ASA.xlsx')
-NBCUWLC = load_workbook('C:/Users/skoirala/Documents/Works/1. NBCU/3. CSPC INVENTORY DELIVERABLES/Template_NBCU_WLC.xlsx')
-NBCUBC = load_workbook('C:/Users/skoirala/Documents/Works/1. NBCU/3. CSPC INVENTORY DELIVERABLES/Template_NBCU_Broadcast.xlsx')
+NBCUIT = load_workbook('<Directory>/Template_NBCU_IT.xlsx')
+NBCUASA = load_workbook('<Directory>Template_NBCU_ASA.xlsx')
+NBCUWLC = load_workbook('<Directory>Template_NBCU_WLC.xlsx')
+NBCUBC = load_workbook('<Directory>Template_NBCU_Broadcast.xlsx')
 
 
 

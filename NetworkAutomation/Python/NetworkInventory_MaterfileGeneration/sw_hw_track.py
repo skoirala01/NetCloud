@@ -17,11 +17,11 @@ date_lastreport  = input("Please provide date of last report in the format of MM
 #print ((date_lastreport))
 
 #read the proper paths to each file
-NBCU_Inventory_Path_to_Date = 'C:/Users/skoirala/Documents/Works/1. NBCU/3. CSPC INVENTORY DELIVERABLES/' + time.strftime("%m-%d-%y")
-path_to_read_siar = 'C:/Users/skoirala/Downloads/TRACK_DETAILS.xlsx'
-path_to_read_eox = 'C:/Users/skoirala/Downloads/HW_EOX_DETAILS.xlsx'
-path_to_save = 'C:/Users/skoirala/Documents/Works/1. NBCU/EOX and SIAR/'##please save 'NBCU_Steve_Update.xlsx'
-SearchReport = 'C:/Users/skoirala/Downloads/77770_search_results.xlsx'
+NBCU_Inventory_Path_to_Date = '<Directory>' + time.strftime("%m-%d-%y")
+path_to_read_siar = '<Directory>/TRACK_DETAILS.xlsx'
+path_to_read_eox = '<Directory>/HW_EOX_DETAILS.xlsx'
+path_to_save = '<Directory>/'##please save 'NBCU_Steve_Update.xlsx'
+SearchReport = '<Directory>_search_results.xlsx'
 
 
 #call the sw_eox function

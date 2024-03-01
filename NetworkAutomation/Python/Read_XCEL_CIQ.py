@@ -16,7 +16,7 @@ import networkx as nx                   # Used for building the topology connect
 import matplotlib                       # Used for plotting the topology
 import matplotlib.pyplot as plt         # Used for displaying the topology
 
-wb = load_workbook('BLTNMN-20240122-034926.xlsx')
+wb = load_workbook('file.xlsx')
 # Specify the sheets that should be parsed during info gathering.
 req_sheets = 'Validation Result'
 

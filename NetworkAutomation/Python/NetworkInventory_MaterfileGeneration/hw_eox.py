@@ -16,7 +16,7 @@ def nbcu_hw_eox(path_to_read,path_to_save):
     hw_eox = HW_EOX.get_sheet_by_name('NBCU_HW_LDOS_Reached_and_1yr')
 
 ####reading data    
-    filename = path_to_read#'C:/Users/skoirala/Downloads/HW_EOX_DETAILS_20181115_1332.xlsx'
+    filename = path_to_read#'<Directory>HW_EOX_DETAILS_20181115_1332.xlsx'
     LDOS = load_workbook(filename)
     ldos_reached = LDOS.get_sheet_by_name('Chassis LDoS Reached')
     ldos_1_yr = LDOS.get_sheet_by_name('Chassis LDoS 1 yr')
