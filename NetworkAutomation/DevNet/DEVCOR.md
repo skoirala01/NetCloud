@@ -1,5 +1,6 @@
 Application Should have
 
+
 Monolithic
 --
 - reliablity
