@@ -1,0 +1,8 @@
+---
+# tasks file for iosxr-qos
+- name: "include play2.yml"
+  include_tasks: showcommands.yml
+  when: >
+        play2 is defined and
+        play2
+

@@ -1,0 +1,13 @@
+---
+- name: RUN cisco COMMAND
+  #connection: network_cli
+  ios_command:
+    commands:  show ip int brief
+  register: output
+  #msg: "{{output.stdout_lines}}"
+
+
+- name: Show output for the show ip int brief
+  debug:
+    msg: "{{output.stdout_lines}}"
+

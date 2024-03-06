@@ -1,0 +1,2 @@
+[asr9k_withuserpassword]
+9.0.2.39 ansible_user=username ansible_password=password ansible_network_os=iosxr

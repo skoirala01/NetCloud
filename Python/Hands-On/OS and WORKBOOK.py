@@ -95,7 +95,7 @@ cwd
 os.chdir("/path/to/your/folder")
 
 # List all files and directories in current directory
-os.listdir('.')
+os.listdir('')
 
 
 

@@ -1,0 +1,13 @@
+---
+- name: testing router commands
+  gather_facts: false
+  connection: network_cli
+  hosts: asr9k_withuserpassword
+  tasks:
+    - name: connection and show interface commands
+      ios_command:
+        commands: show ip int br
+      register: output
+    - name: Display
+      debug:
+        msg: "{{output.stdout_lines}}"

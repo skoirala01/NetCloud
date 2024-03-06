@@ -1,0 +1,34 @@
+---
+- name: ASR9K IOSXR Counter clearing
+  gather_facts: no
+  hosts: asr9k
+  vars:
+    ansible_user: username
+    ansible_password: password
+    ansible_network_os: iosxr
+
+
+  tasks:
+    - name: show the interface counter packets and clear it
+      delegate_to: localhost
+      ios_command:
+        commands:
+          - command: show interface TenGigE0/0/0/17 | i packets
+          - command: clear counter interface TenGigE0/0/0/17
+            prompt: "[confirm]"
+            answer: "\r"
+          - command: show interface TenGigE0/0/0/17 | i packets
+      register: showoutput
+
+    - name: Copy the show running
+      ios_command:
+        commands: show run
+      register: showrun
+
+
+    - debug:
+        msg: "{{ showoutput.stdout_lines }}"
+
+    - copy:
+        content: "{{ showrun.stdout[0] }}"
+        dest: "/export-home/.../showrun.txt"
