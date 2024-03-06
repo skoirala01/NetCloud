@@ -1,0 +1,5 @@
+Etherchannel Load Balancing based on source or destination MAC-address, or ip addresses
+--------
+
+- https://www.cisco.com/c/en/us/td/docs/routers/nfvis/switch_command/b-nfvis-switch-command-reference/port_channel_commands.pdf
+- https://study-ccnp.com/etherchannel-load-balancing-explanation-configuration/
