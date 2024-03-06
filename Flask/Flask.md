@@ -1,2 +1,4 @@
-- DataKnox
-https://github.com/DataKnox/CodeSamples/blob/master/Python/AppDev/app/myApi.py
+References
+-----
+DataKnox
+ - [DataKnox](https://github.com/DataKnox/CodeSamples/blob/master/Python/AppDev/app/myApi.py)
