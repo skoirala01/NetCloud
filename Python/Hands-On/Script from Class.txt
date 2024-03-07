@@ -1,0 +1,61 @@
+#f = open('demofile.txt', 'r')
+##print f.read()
+#xx = f.readlines()
+#print xx
+#
+#f.close()
+##
+#runningconfig = open("Verizon_RunningConfig.txt", 'r')
+#print runningconfig
+#
+#
+#for line in runningconfig:
+#    print line.strip()
+
+
+
+#import os
+#if os.path.exists("demofile.txt"):
+#  os.remove("demofile.txt")
+#else:
+#  print("The file does not exist")
+
+#import os
+#os.rmdir("myfolder")
+
+#
+#f = open("C:/Users/skoirala/Documents/Python Classes/namename.txt", "w")
+#f.write("Back slash is for window and forward slash is for linux")
+#f.close()
+#
+#
+#
+#fread = open("C:/Users/skoirala/Documents/Python Classes/Readme.txt", 'r')
+#
+##for line in fread:
+##    print line
+#
+#fread.close()
+
+#
+#import os
+#if os.path.exists("C:/Users/skoirala/Documents/Python Classes/Readme.txt"):
+#  os.remove("C:/Users/skoirala/Documents/Python Classes/Readme.txt")
+#else:
+#  print("The file does not exist")
+#  
+  
+  
+
+
+fread = open("C:/Users/skoirala/Documents/Python Classes/demofile.txt", 'r')
+
+#content =  fread.readlines()
+#lenth = len(content)
+#print lenth
+#print content[lenth-1]
+
+for line in fread:
+    if 'dsf' in line:
+        print line
+fread.close()
