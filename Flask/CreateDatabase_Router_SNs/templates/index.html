@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Router Serial Numbers</title>
+</head>
+<body>
+    <h1>Router Serial Numbers</h1>
+    <ul>
+        {% for serial in serial_numbers %}
+            <li>{{ serial[0] }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
